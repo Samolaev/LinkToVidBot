@@ -14,8 +14,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 TOKEN = os.getenv("BOT_TOKEN")
-if not TOKEN:
-    raise RuntimeError("BOT_TOKEN is not set")
 
 application = Application.builder().token(TOKEN).build()
 
@@ -158,21 +156,21 @@ class handler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
 
-    def do_POST(self):
-        if self.path == "/api/webhook":
-            content_length = int(self.headers.get("Content-Length", 0))
-            post_data = self.rfile.read(content_length)
-            try:
-                update = Update.de_json(json.loads(post_data), application.bot)
-                asyncio.run(application.process_update(update))
-                self.send_response(200)
-                self.send_header("Content-type", "application/json")
-                self.end_headers()
-                self.wfile.write(b'{"ok":true}')
-            except Exception as e:
-                print("Error:", e)
-                self.send_response(500)
-                self.end_headers()
-        else:
-            self.send_response(404)
+def do_POST(self):
+    if self.path == "/api/webhook":
+        content_length = int(self.headers.get("Content-Length", 0))
+        post_data = self.rfile.read(content_length)
+        try:
+            update = Update.de_json(json.loads(post_data), application.bot)
+            asyncio.run(application.process_update(update))
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
             self.end_headers()
+            self.wfile.write(b'{"ok":true}')
+        except Exception as e:
+            print("Error:", e)
+            self.send_response(500)
+            self.end_headers()
+    else:
+        self.send_response(404)
+        self.end_headers()
