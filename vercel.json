@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "regions": ["fra1"],
+  "functions": {
+    "api/bot.py": {
+      "runtime": "python3.9",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/webhook",
+      "dest": "/api/bot.py"
+    },
+    {
+      "src": "/",
+      "dest": "/api/bot.py"
+    },
+    {
+      "src": "/api/health",
+      "dest": "/api/bot.py"
+    }
+  ],
+  "env": {
+    "BOT_TOKEN": "@bot_token"
+  }
+}
