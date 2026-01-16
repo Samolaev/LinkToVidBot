@@ -23,6 +23,6 @@
     }
   ],
   "env": {
-    "BOT_TOKEN": "@bot_token"
+    "BOT_TOKEN": "@BOT_TOKEN_SECRET"
   }
 }
