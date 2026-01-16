@@ -11,29 +11,11 @@
 ## Технологии
 
 - Python
-- python-telegram-bot
-- Flask
+- aiogram 3.x
 - yt-dlp
 - Vercel Serverless Functions
 
 ## Установка и запуск
-
-### Локальный запуск
-
-1. Установите зависимости:
-```bash
-pip install -r requirements.txt
-```
-
-2. Установите переменную окружения с токеном бота:
-```bash
-export BOT_TOKEN="ваш_токен_бота"
-```
-
-3. Запустите локальный сервер:
-```bash
-python test_bot.py
-```
 
 ### Деплой на Vercel
 
@@ -52,13 +34,14 @@ vercel login
 vercel --prod
 ```
 
-4. В настройках проекта в Vercel добавьте секрет:
-   - Имя: `BOT_TOKEN_SECRET`
-   - Значение: ваш_токен_бота
+4. В настройках проекта в Vercel добавьте переменную окружения:
+   - Key: TELEGRAM_BOT_TOKEN
+   - Value: ваш_токен_бота
+   - Установите галочку "Encrypted" для шифрования
 
 5. После деплоя настройте вебхук Telegram:
 ```
-https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://<YOUR_VERCEL_DOMAIN>/api/webhook
+https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/setWebhook?url=https://<YOUR_VERCEL_DOMAIN>/api/webhook
 ```
 
 ## Конфигурация
@@ -70,13 +53,12 @@ https://api.telegram.org/bot<BOT_TOKEN>/setWebhook?url=https://<YOUR_VERCEL_DOMA
 
 ## API эндпоинты
 
-- `GET /` - проверка статуса бота
+- `GET /api/webhook` - проверка статуса бота
 - `POST /api/webhook` - получение обновлений от Telegram
-- `GET /api/health` - проверка работоспособности сервиса
 
 ## Переменные окружения
 
-- `BOT_TOKEN` - токен вашего Telegram-бота (обязательно)
+- `TELEGRAM_BOT_TOKEN` - токен вашего Telegram-бота (обязательно)
 
 ## Поддерживаемые платформы
 

@@ -2,7 +2,7 @@
   "version": 2,
   "regions": ["fra1"],
   "functions": {
-    "api/bot.py": {
+    "api/webhook.py": {
       "runtime": "python3.9",
       "memory": 1024,
       "maxDuration": 30
@@ -11,18 +11,10 @@
   "routes": [
     {
       "src": "/api/webhook",
-      "dest": "/api/bot.py"
-    },
-    {
-      "src": "/",
-      "dest": "/api/bot.py"
-    },
-    {
-      "src": "/api/health",
-      "dest": "/api/bot.py"
+      "dest": "/api/webhook.py"
     }
   ],
   "env": {
-    "BOT_TOKEN": "@BOT_TOKEN_SECRET"
+    "TELEGRAM_BOT_TOKEN": "@TELEGRAM_BOT_TOKEN"
   }
 }
